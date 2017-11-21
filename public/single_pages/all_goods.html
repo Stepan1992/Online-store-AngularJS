@@ -1,0 +1,23 @@
+
+<div ng-repeat="item in itemsArr | filter: {name : search} | page : from : count" class="goodsBox">
+    <div class="goods" ng-click="chooseItem($index, item.name, item.id)">
+        <img src="{{item.pictureSrc}}" alt="{{item.name}}" width="130px" height="165px">
+        <br>
+        <p>Name: {{item.name}}</p>
+        <hr>
+        <br>
+        <p>Price: {{item.price | currency}}</p>
+        <hr>
+        <br>
+        <p>Category: {{item.category}}</p>
+        <hr>
+        <br>
+        <p>Description: {{item.description}}</p>
+        <hr>
+        <br>
+        <p>Count: {{item.count}}</p>
+                <button ng-click="buyFunc($event, $index)" ng-show="forUser">Buy</button>
+        <button class="forAdmin" ng-click="deleteItem($event, item.id)" ng-show="forAdmin">Delete Item</button>
+    </div>
+
+</div>

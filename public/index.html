@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MyShop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_slider.css">
+    <link rel="stylesheet" href="log_style.css">
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="angular.min.js"></script>
+    <script src="main_JQ_script.js"></script>
+    <script src="log_Ang_script.js"></script>
+    <script src="chat_script.js"></script>
+    <script src="main_Ang_script.js"></script>
+    <script src="angular-route.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <ul class="headerList" home-directive ng-controller="headCtrl">
+            <li>HOME</li>
+            <li class="look_for">SEARCH</li>
+            <li class="log_in">LOG IN</li>
+            <li class="sign_in">SIGN UP</li>
+            <li> ABOUT US</li>
+        </ul>
+    </header>
+    <slider></slider>
+    <login></login>
+    <aside>
+        <div class="sort"></div>
+        <div class="chat" ng-controller="chatCtrl">
+            <div class="chatWindow">
+                <p ng-repeat="a in questionArr" ng-class-even="evenClass" ng-class-odd="oddClass">{{a.question}} <br> {{a.user}} {{a.date | date:'medium'}}</p>
+            </div>
+            <form novalidate name="chatForm">
+                <textarea ng-model="quest" wrap="soft" required></textarea>
+                <input type="button" class="askBtn" ng-click="chatFunc()" ng-disabled="chatForm.$invalid" value="Ask">
+            </form>
+        </div>
+    </aside>
+    <article ng-controller="mainCtrl">
+        <div ng-show="currentView == 'allGoods' && forAdmin" ><button ng-click="showAddWindow()" class="forAdmin AddNewItem">Add new item</button></div>
+        <div class="goodsWrap" ng-include src="'single_pages/all_goods.html'" ng-show="currentView == 'allGoods'">
+        </div>
+        <div class="goodsWrap" ng-include src="'single_pages/current_goods.html'" ng-show="currentView == 'currentGoods'"></div>
+        <div class="goodsWrap" ng-include src="'single_pages/add_item.html'" ng-show="currentView == 'addItemWindow'"></div>
+        <div class="goodsWrap" ng-include src="'single_pages/change_goods.html'" ng-show="currentView == 'changeGoods'"></div>
+        <div class="numbers">
+            <div ng-click="limitToFunc($event)" class="innerNumbers" id="num" ng-show="showPageNumbers">
+            </div>
+        </div>
+<!--
+        <input type="text" ng-click="phoneCode">
+        <input type="text" ng-click="phoneNumber">
+        
+        <input type="button" value="number" ng-click="phone()">
+-->
+        
+        
+    </article>
+    
+
+</body>
+
+</html>

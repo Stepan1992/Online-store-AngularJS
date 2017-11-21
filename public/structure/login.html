@@ -1,0 +1,63 @@
+<div ng-controller="logCtrl">
+       
+        <div ng-show="access" class="alert">
+            <p>welcome {{currentUserName}}</p>
+        </div>
+        <div ng-show="regist" class="alert2">
+            <p>you are registered and you can log in</p>
+        </div>
+        <div class="alert2" ng-show="nonRegistered">
+            <p>you are not registered, please log in</p>
+        </div>
+        <div class="login" ng-style="showLog">
+            <form name='myForm' novalidate>
+                <p>Login</p>
+                <input class="inputs" type="text" required ng-model="userNameNonFiltered" name="userInput">
+                <br>
+                <br>
+                <p>Password</p>
+                <input class="inputs" type="password" ng-model="userPassNonFiltered" required name="passInput">
+                <div ng-show="err" class="error">
+                    {{errorCheck(myForm.userInput.$error, myForm.passInput.$error)}}
+                </div>
+                <div ng-show="unReg" class="error">
+                    You are not registered or you inputed wrong data
+                </div>
+                <br>
+                <br>
+                <button class="btn" type="submit" ng-click='mainFunc(myForm.userInput.$error, myForm.passInput.$error)'>SING IN</button>
+            </form>
+        </div>
+        <div class="registration" ng-style="showReg">
+            <form name='myForm2' novalidate>
+                <p>Enter your Name</p>
+                <input class="inputs" type="text" required ng-model="userNameRegNonFiltered" name="userInputReg" ng-minlength="4" ng-pattern='template'>
+                <br>
+                <br>
+                <p>Enter your Password</p>
+                <input class="inputs" type="password" required ng-model="userPassRegNonFiltered" name="passInputReg" ng-minlength="4">
+                <br>
+                <br>
+                <p>Enter your Email</p>
+                <input class="inputs" type="email" required ng-model="userEmailRegNonFiltered" name="emailInputReg">
+                <br>
+                <br>
+                <p><input type="checkbox" id="check" name="checkbox" required ng-model="checkData">Are you agree</p>
+                <div ng-show="errorMassage" class="error">
+                    You inputed wrong data
+                </div>
+                <button class="btn" type="submit" ng-click='regFunc(myForm2.$valid)'>CONFIRM</button>
+            </form>
+        </div>
+        <div class="search">
+            <form novalidate name="myForm3">
+                <input type="text" class="inputs" required ng-model="search" name="searchInp" placeholder="Name of goods">
+                <br>
+                <br>
+                <button class="btn" type="submit" ng-click="searchFunc()" ng-disabled="myForm3.$invalid">Search</button>
+            </form>
+        </div>
+        <div class="hello" ng-show="showHello">
+            <p>Hello, {{currentUserName}}</p>
+        </div>
+    </div>

@@ -1,0 +1,177 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.login {
+    width: 250px;
+    margin: auto;
+    z-index: 2000;
+    position: absolute;
+    text-align: center;
+    padding-bottom: 15px;
+    background-color: #2a2828;
+    opacity: 0.8;
+    margin-left: 530px;
+    display: none;
+    height: auto;
+    padding-top: 15px;
+}
+
+.registration {
+    height: auto;
+    margin-left: 840px;
+    display: none;
+    width: 250px;
+    z-index: 2000;
+    position: absolute;
+    text-align: center;
+    padding-bottom: 15px;
+    background-color: #2a2828;
+    opacity: 0.8;
+    padding-top: 15px;
+}
+
+.inputs {
+    display: inline-block;
+    box-sizing: content-box;
+    padding: 10px 20px;
+    border: 1px solid #b7b7b7;
+    border-radius: 39px;
+    font: normal 16px/normal "Lucida Console", Monaco, monospace;
+    color: #595459;
+    text-overflow: clip;
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2) inset;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.66);
+    opacity: 0.8;
+    width: 150px;
+    height: 10px;
+}
+
+.login p {
+    padding-left: 10px;
+    padding-bottom: 8px;
+    color: rgb(194, 198, 206);
+    font-family: sans-serif;
+    font-size: 12pt;
+    text-shadow: 2px 2px 1px black;
+}
+
+.btn {
+    font-family: arial;
+    color: #4A454A;
+    font-size: 15px;
+    text-shadow: 1px 1px 0px #B9C7C0;
+    padding: 5px 15px;
+    border-radius: 40px;
+    background: darkgray;
+    background: linear-gradient(top, #E2D8EB, #BAB6BA);
+    opacity: 0.8;
+    width: 120px;
+}
+
+.btn:hover {
+    background: #C2C1BC;
+    background: linear-gradient(top, #A8ADAC, #D0DBD9);
+    color: black;
+}
+
+form .ng-pristine {
+    background-color: darkgray;
+}
+
+form .ng-invalid.ng-dirty {
+    background-color: lightpink;
+}
+
+.error {
+    width: 100%;
+    text-align: center;
+    padding-top: 5px;
+    color: red;
+    font-family: sans-serif;
+    font-size: 12pt;
+}
+
+.alert {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 3000;
+    background: black;
+    top: 0;
+    opacity: 0.85;
+    color: white;
+    text-align: center;
+}
+
+.alert p {
+    padding-top: 300px;
+    font-family: sans-serif;
+    font-size: 30pt;
+}
+
+.registration p {
+    padding-left: 10px;
+    padding-bottom: 8px;
+    color: rgb(194, 198, 206);
+    font-family: sans-serif;
+    font-size: 12pt;
+    text-shadow: 2px 2px 1px black;
+}
+
+#check {
+    margin-left: 5px;
+}
+
+.alert2 {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 3000;
+    background: black;
+    top: 0;
+    opacity: 0.85;
+    color: white;
+    text-align: center;
+}
+
+.alert2 p {
+    padding-top: 300px;
+    font-family: sans-serif;
+    font-size: 30pt;
+}
+
+.hello {
+    height: 40px;
+    right: 0;
+    width: 250px;
+    z-index: 2000;
+    position: absolute;
+    text-align: center;
+    padding-bottom: 15px;
+    background-color: #2a2828;
+    opacity: 0.8;
+    padding: 8px;
+}
+
+.hello p {
+    color: white;
+    font-size: 15pt;
+}
+
+.search {
+    height: auto;
+    margin-left: 230px;
+    display: none;
+    width: 250px;
+    z-index: 2000;
+    position: absolute;
+    text-align: center;
+    padding-bottom: 15px;
+    background-color: #2a2828;
+    opacity: 0.8;
+    padding-top: 15px;
+}

@@ -1,0 +1,40 @@
+<div class="goods currentGoods">
+    <img src="{{chosenItem.pictureSrc}}" alt="{{chosenItem.name}}" width="120px" height="160px">
+    <br>
+    <p>Name: {{chosenItem.name}}</p>
+    <hr>
+    <br>
+    <p>Price: {{chosenItem.price | currency}}</p>
+    <hr>
+    <br>
+    <p>Category: {{chosenItem.category}}</p>
+    <hr>
+    <br>
+    <p>Description: {{chosenItem.description}}</p>
+    <hr>
+    <br>
+    <p>Count: {{chosenItem.count}}</p>
+    <hr>
+    <br>
+    <p>Large description: {{largeDescription}}</p>
+
+    <button ng-click="buyFunc($event, $index)" ng-show="$parent.forUser">Buy</button>
+    <button ng-click="showChangeWindow()" class="forAdmin" ng-show="$parent.forAdmin">Change item</button>
+</div>
+
+
+
+<br>
+<br>
+
+
+<div class="chat">
+    <div class="chatWindow">
+        <p ng-repeat="a in $parent.currentReviewArray" ng-class-even="evenClass" ng-class-odd="oddClass">{{a.question}} <br> {{a.user}} {{a.date | date:'medium'}}</p>
+    </div>
+    <form novalidate name="chatForm">
+        <textarea ng-model="$parent.review" wrap="soft" required></textarea>
+        <input type="button" class="askBtn" ng-click="reviewsFunc()" ng-disabled="chatForm.$invalid" value="Ask">
+    </form>
+
+</div>

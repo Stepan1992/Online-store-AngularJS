@@ -1,0 +1,27 @@
+<div class="changeCurrentGoods">
+    <form name="changeCurrentGoods" novalidate>
+        <img src="{{chosenItem.pictureSrc}}" alt="{{chosenItem.name}}" width="120px" height="180px">
+        <br>
+        <p>The way to the picture:</p><input type="text" ng-model="$parent.changeWay" class="textareaAdmin" required>
+        <br>
+        <p>Name:</p><input type="text" ng-model="$parent.changeName" class="textareaAdmin" required ng-maxlength="25">
+        <br>
+        <p>Price:</p><input type="text" ng-model="$parent.changePrice" class="textareaAdmin" ng-pattern='pattern' required ng-maxlength="25">
+        <br>
+        <p>Category:</p><input type="text" ng-model="$parent.changeCategory" class="textareaAdmin" required ng-maxlength="25">
+        <br>
+        <p>Count:</p><input type="text" ng-model="$parent.changeCount" class="textareaAdmin" ng-pattern='pattern' required ng-maxlength="25">
+        <br>       
+        <p>Description:</p><textarea ng-model="$parent.changeDescription" class="textareaAdmin" required wrap="soft"></textarea>
+        <br>
+        <p>Large description:</p><textarea ng-model="$parent.changeLargeDescription" class="textareaAdmin" required wrap="soft"></textarea>
+        <br>
+        <br>
+        <br>
+
+
+        <input type="button" value="Change" ng-click="changeFunc()" class="askBtn">
+<!--        changeCurrentGoods.$invalid-->
+
+    </form>
+</div>
