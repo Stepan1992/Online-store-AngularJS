@@ -6,6 +6,9 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
     $scope.forUser = true;
     $scope.forAdmin = false;
 
+    $scope.from = 0;
+    $scope.count = 8;
+
 
     $scope.chooseItem = function (index, name, id) {
         $scope.array = $scope.itemsArr;
@@ -85,7 +88,7 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
         $http.get('http://localhost:8000/goods')
             .then(function successCallback(response) {
                 $scope.itemsArr = response.data;
-          
+
 
             }, function errorCallback(response) {
                 console.log("Error!!!" + response.err);
@@ -231,8 +234,6 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
             console.log("Error!!!" + response.err);
         });
 
-    $scope.from = 0;
-    $scope.count = 8;
 
 
     $scope.limitToFunc = function (event) {
@@ -240,20 +241,7 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
 
         var currentDiv = angular.element(event.target);
         var pageNumber = Number(currentDiv.text());
-
-        $scope.pageSort = function () {
-            if ((pageNumber * 8) === 8) {
-                $scope.from = 0;
-                $scope.count = 8;
-
-            } else {
-                $scope.from = (pageNumber * 8) - 8;
-                $scope.count = 8;
-
-
-            }
-        };
-        $scope.pageSort();
+        $scope.from = (pageNumber * 8) - 8;
         window.scrollTo(0, 300);
     };
 
