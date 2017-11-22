@@ -1,6 +1,7 @@
 * {
     padding: 0;
     margin: 0;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
 
@@ -15,9 +16,18 @@ header {
     list-style: none;
     width: inherit;
     text-align: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
     flex-direction: row;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     height: inherit;
 }
@@ -117,12 +127,15 @@ aside {
     padding: 2px 10px;
     border-radius: 40px;
     background: darkgray;
+    background: -webkit-gradient(linear, left top, left bottom, from(#E2D8EB), to(#BAB6BA));
     background: linear-gradient(top, #E2D8EB, #BAB6BA);
     opacity: 0.8;
     width: 120px;
 }
 
 .goodsBox {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -145,6 +158,7 @@ aside {
     padding: 2px 10px;
     border-radius: 40px;
     background: #c7c7c7;
+    background: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(#E2D8EB), to(#BAB6BA));
     background: linear-gradient(top, #E2D8EB, #BAB6BA);
     opacity: 0.8;
     width: 120px;
@@ -157,22 +171,31 @@ aside {
     width: 100%;
     margin-top: 300px;
     border: 1px solid black;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
     padding: 25px;
 }
 
 .numbers {
     color: white;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     background-color: #2a2828;
     opacity: 0.8;
     height: 28px;
 }
 
-.innerNumbers div {
+.innerNumbers {
     cursor: pointer;
     float: left;
     padding: 3px;
@@ -185,7 +208,8 @@ aside {
     background-color: #121212;
 }
 
-.innerNumbers div:hover {
+
+.innerNumbers:hover {
     border: 1px solid white;
     background-color: #c1c1c1;
     color: #252627;
@@ -228,7 +252,11 @@ aside {
     margin: auto;
     width: 80%;
     margin-top: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
 }
 
@@ -282,7 +310,11 @@ img {
     margin: auto;
     width: 80%;
     margin-top: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
 }
 

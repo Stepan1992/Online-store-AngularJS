@@ -6,34 +6,7 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
     $scope.forUser = true;
     $scope.forAdmin = false;
 
-//    $scope.phoneCode;
-//    $scope.phoneNumber;
-//
-//    $scope.phone = function () {
-//
-//        let obj = {
-//            body: $scope.phoneCode,
-//            to: $scope.phoneNumber
-//        };
-//
-//        $http.post('http://localhost:8000/testtwilio', obj)
-//            .then(function successCallback(response) {
-//                console.log("Success!");
-//            }, function errorCallback(response) {
-//                console.log("Error!!!" + response.err);
-//            });
-//
-//
-//    }
 
-
-
-
-
-
-
-
-    //    $scope.nonRegistered = false;
     $scope.chooseItem = function (index, name, id) {
         $scope.array = $scope.itemsArr;
         $scope.itemId = id;
@@ -112,19 +85,7 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
         $http.get('http://localhost:8000/goods')
             .then(function successCallback(response) {
                 $scope.itemsArr = response.data;
-                //                if ($scope.itemsArr.length % 8 == 0) {
-                //                    let numbersBox = angular.element(document.getElementById('num'));
-                //                    let currentDiv = numbersBox.children().eq(numbersBox.children().length - 1);
-                //                    currentDiv.remove();
-                //                    $scope.goodsFunc();
-                //
-                //                    $scope.from = $scope.from - 8;
-                //                    $scope.count = $scope.count - 8;
-                //                    
-                //                    $scope.pageSort();
-                //
-                //
-                //                }
+          
 
             }, function errorCallback(response) {
                 console.log("Error!!!" + response.err);
@@ -171,13 +132,6 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
         $scope.search = args.search;
 
 
-
-
-
-
-
-
-
     });
 
     $scope.goodsFunc = function () {
@@ -186,26 +140,18 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
             .then(function successCallback(response) {
                 $scope.itemsArr = response.data;
                 $scope.addNumberBox = function () {
-                    if (($scope.itemsArr % 8) != 0) {
-                        if (($scope.itemsArr.length / 8) == 1) {
-                            $scope.numbersCount == 1;
-                        } else {
-                            $scope.numbersCount = Math.ceil($scope.itemsArr.length / 8);
-                        }
-                    } else {
-                        $scope.numbersCount = $scope.itemsArr.length / 8;
-                    }
-                    let numbersBox = angular.element(document.getElementById('num'));
-                    while ((numbersBox.children().length < $scope.numbersCount) && ($scope.numbersCount != 1)) {
-                        let j = numbersBox.children().length + 1;
-                        let newDiv = angular.element("<div>").text(j++);
-                        numbersBox.append(newDiv);
+                    if ($scope.itemsArr.length <= 8) {
+                        $scope.showPageNumbers = false;
+                    };
 
-                    }
+                    $scope.pagesArr = [];
+                    let pegesCount = Math.floor($scope.itemsArr.length / 8);
+
+                    for (let k = 1; k <= pegesCount; k++) {
+                        $scope.pagesArr.push(k)
+                    };
                 }
                 $scope.addNumberBox();
-
-
 
 
             }, function errorCallback(response) {
@@ -295,8 +241,8 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
         var currentDiv = angular.element(event.target);
         var pageNumber = Number(currentDiv.text());
 
-        $scope.pageSort = function pageSort() {
-            if ((pageNumber * 8) == 8) {
+        $scope.pageSort = function () {
+            if ((pageNumber * 8) === 8) {
                 $scope.from = 0;
                 $scope.count = 8;
 

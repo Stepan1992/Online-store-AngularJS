@@ -47,17 +47,12 @@
         <div class="goodsWrap" ng-include src="'single_pages/current_goods.html'" ng-show="currentView == 'currentGoods'"></div>
         <div class="goodsWrap" ng-include src="'single_pages/add_item.html'" ng-show="currentView == 'addItemWindow'"></div>
         <div class="goodsWrap" ng-include src="'single_pages/change_goods.html'" ng-show="currentView == 'changeGoods'"></div>
-        <div class="numbers">
-            <div ng-click="limitToFunc($event)" class="innerNumbers" id="num" ng-show="showPageNumbers">
+        <div class="numbers" ng-show="showPageNumbers">
+            <div ng-click="limitToFunc($event)" class="innerNumbers" ng-repeat="number in pagesArr">
+            {{number}}
             </div>
         </div>
-<!--
-        <input type="text" ng-click="phoneCode">
-        <input type="text" ng-click="phoneNumber">
-        
-        <input type="button" value="number" ng-click="phone()">
--->
-        
+
         
     </article>
     
