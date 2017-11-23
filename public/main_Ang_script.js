@@ -99,7 +99,7 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
 
     }
 
-    var some = 'olo';
+   
 
     $scope.myFactory.homeFunc = function () {
         $scope.from = 0;
@@ -186,14 +186,7 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
 
         }
     });
-    //    
-    //    
-    //    $scope.sFunc = function(){
-    //        alert('hello')
-    //    }
-
-    //    console.log($scope.userName)
-
+ 
 
     $scope.reviewsFunc = function () {
         $scope.date = new Date();
