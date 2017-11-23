@@ -5,9 +5,10 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
     $scope.pattern = /\d{1,}/;
     $scope.forUser = true;
     $scope.forAdmin = false;
+    var goodsCountOnPage = 8;
 
     $scope.from = 0;
-    $scope.count = 8;
+    $scope.count = goodsCountOnPage;
 
 
     $scope.chooseItem = function (index, name, id) {
@@ -98,9 +99,12 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
 
     }
 
+    var some = 'olo';
+
     $scope.myFactory.homeFunc = function () {
         $scope.from = 0;
-        $scope.count = 8;
+        $scope.count = goodsCountOnPage;
+        
         $scope.currentView = myFactory.current;
         $scope.search = '';
         $scope.showPageNumbers = true;
@@ -143,12 +147,12 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
             .then(function successCallback(response) {
                 $scope.itemsArr = response.data;
                 $scope.addNumberBox = function () {
-                    if ($scope.itemsArr.length <= 8) {
+                    if ($scope.itemsArr.length <= goodsCountOnPage) {
                         $scope.showPageNumbers = false;
                     };
 
                     $scope.pagesArr = [];
-                    let pegesCount = Math.floor($scope.itemsArr.length / 8);
+                    let pegesCount = Math.ceil($scope.itemsArr.length / goodsCountOnPage);
 
                     for (let k = 1; k <= pegesCount; k++) {
                         $scope.pagesArr.push(k)
@@ -241,7 +245,7 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
 
         var currentDiv = angular.element(event.target);
         var pageNumber = Number(currentDiv.text());
-        $scope.from = (pageNumber * 8) - 8;
+        $scope.from = (pageNumber * goodsCountOnPage) - goodsCountOnPage;
         window.scrollTo(0, 300);
     };
 
