@@ -56,7 +56,6 @@ let initDb = function () {
         'PRIMARY KEY(id) )',
         function (err) {
             if (err) throw err;
-            console.log('CREATE TABLE IF NOT EXISTS chating')
         });
 
     connection.query('' +
@@ -71,7 +70,6 @@ let initDb = function () {
         'PRIMARY KEY(id) )',
         function (err) {
             if (err) throw err;
-            console.log('CREATE TABLE IF NOT EXISTS goods')
         });
 
     connection.query('' +
@@ -84,7 +82,6 @@ let initDb = function () {
         'PRIMARY KEY(id) )',
         function (err) {
             if (err) throw err;
-            console.log('CREATE TABLE IF NOT EXISTS reviews')
         });
 
 };
@@ -95,7 +92,6 @@ initDb();
 app.get('/login', function (req, res) {
     connection.query('SELECT * FROM shop_users', function (err, responce) {
         if (err) throw err;
-        console.log('get all shop_users, length: ' + responce.length);
         res.status(200).send(responce);
     });
 });
@@ -104,7 +100,6 @@ app.post('/login', function (req, res) {
     connection.query('INSERT INTO shop_users SET ?', req.body,
         function (err, result) {
             if (err) throw err;
-            console.log('user added to database with id: ' + result.insertId);
         }
     );
     res.sendStatus(200);
@@ -117,7 +112,6 @@ app.post('/login', function (req, res) {
 app.get('/chating', function (req, res) {
     connection.query('SELECT * FROM chating', function (err, responce) {
         if (err) throw err;
-        console.log('get all chating, length: ' + responce.length);
         res.status(200).send(responce);
     });
 });
@@ -126,16 +120,11 @@ app.post('/chating', function (req, res) {
     connection.query('INSERT INTO chating SET ?', req.body,
         function (err, result) {
             if (err) throw err;
-            console.log('question added to database with id: ' + result.insertId);
         }
     );
     res.sendStatus(200);
 });
 
-
-
-
-//goods "post" для адміністрування створений
 
 
 app.get('/goods', function (req, res) {
@@ -150,7 +139,6 @@ app.post('/goods', function (req, res) {
     connection.query('INSERT INTO goods SET ?', req.body,
         function (err, result) {
             if (err) throw err;
-            console.log('goods added to database with id: ' + result.insertId);
         }
     );
     res.sendStatus(200);
@@ -163,7 +151,6 @@ app.post('/goods', function (req, res) {
 app.get('/reviews', function (req, res) {
     connection.query('SELECT * FROM reviews', function (err, responce) {
         if (err) throw err;
-        console.log('get all reviews, length: ' + responce.length);
         res.status(200).send(responce);
     });
 });
@@ -172,7 +159,6 @@ app.post('/reviews', function (req, res) {
     connection.query('INSERT INTO reviews SET ?', req.body,
         function (err, result) {
             if (err) throw err;
-            console.log('review added to database with id: ' + result.insertId);
         }
     );
     res.sendStatus(200);
@@ -237,10 +223,8 @@ app.post('/addItem', function (req, res) {
     connection.query('INSERT INTO goods SET ?', obj,
         function (err, result) {
             if (err) throw err;
-            console.log('goods added to database with id: ' + result.insertId);
             fs.writeFile('./text/' + result.insertId + '.txt', text, function (err) {
                 if (err) throw err;
-                console.log('Saved!');
             });
 
         }
@@ -261,7 +245,6 @@ app.post('/changeItem', function (req, res) {
         if (err) throw err;
         fs.writeFile('./text/' + id + '.txt', txt, function (err) {
             if (err) throw err;
-            console.log('Saved!');
         });
 
     });

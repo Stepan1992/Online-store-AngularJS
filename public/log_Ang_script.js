@@ -43,6 +43,8 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
         'display': 'none'
     };
 
+    //зробити фільтри однією функцією
+
     $scope.userName = function () {
         return $filter('lowercase')($scope.userNameNonFiltered);
     }
@@ -103,13 +105,6 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
                 if ($scope.userName() == undefined && $scope.userPass() == undefined) {
                     $scope.unReg = false;
                 }
-//                if (($scope.userName() == 'admin' && $scope.userPass() == '9999')) {
-//                    console.log('olo')
-//                    //                    $scope.sFunc()
-//                }
-
-
-
             }, function errorCallback(response) {
                 console.log("Error!!!" + response.err);
             });
@@ -120,7 +115,6 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
         }
     };
 
-    //Функція надсилання нового рядка
     $scope.regFunc = function (valid) {
         if (valid) {
             var obj = {
@@ -128,7 +122,7 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
                 email: $scope.userEmailReg(),
                 password: $scope.userPassReg()
             };
-            //Запит POST надсилає об'єкт
+
             $http.post('http://localhost:8000/login', obj)
                 .then(function successCallback(response) {
                     console.log("Success!");

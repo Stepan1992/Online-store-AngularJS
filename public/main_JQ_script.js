@@ -50,11 +50,4 @@ $(document).ready(function () {
         }
     });
 
-
-
-
-
-
-
-
 })

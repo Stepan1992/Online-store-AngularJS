@@ -17,7 +17,7 @@ app.controller('chatCtrl', function ($scope, $http) {
         };
 
 
-        //Запит POST надсилає об'єкт
+
         $http.post('http://localhost:8000/chating', obj)
             .then(function successCallback(response) {
                 console.log("Success!");
@@ -25,7 +25,7 @@ app.controller('chatCtrl', function ($scope, $http) {
             }, function errorCallback(response) {
                 console.log("Error!!!" + response.err);
             });
-        //Повторно робимо запит на всі рядки (для оновлення інформації)
+
         $http.get('http://localhost:8000/chating')
             .then(function successCallback(response) {
                 $scope.questionArr = response.data;
