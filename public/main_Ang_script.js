@@ -97,14 +97,12 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
 
         $scope.goodsFunc();
 
-    }
-
-   
+    };
 
     $scope.myFactory.homeFunc = function () {
         $scope.from = 0;
         $scope.count = goodsCountOnPage;
-        
+
         $scope.currentView = myFactory.current;
         $scope.search = '';
         $scope.showPageNumbers = true;
@@ -130,8 +128,14 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
 
     $scope.$on('sendUserNameEvent', function (event, args) {
         $scope.userName = args.userName;
-    });
+        $scope.userPass = args.userPass;
 
+        if (args.adminStatus) {
+            $scope.forUser = false;
+            $scope.forAdmin = true;
+
+        }
+    });
 
     $scope.$on('sendSearchReqEvent', function (event, args) {
         myFactory.current = 'allGoods';
@@ -178,15 +182,6 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
 
 
     });
-    $scope.$on('sendUserPassEvent', function (event, args) {
-        $scope.userPass = args.userPass;
-        if ($scope.userName == 'admin' && $scope.userPass == 9999) {
-            $scope.forUser = false;
-            $scope.forAdmin = true;
-
-        }
-    });
- 
 
     $scope.reviewsFunc = function () {
         $scope.date = new Date();
@@ -199,7 +194,7 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
         };
 
 
-        //Запит POST надсилає об'єкт
+
         $http.post('http://localhost:8000/reviews', obj)
             .then(function successCallback(response) {
                 console.log("Success!");
@@ -207,7 +202,7 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
                 console.log("Error!!!" + response.err);
             });
 
-        //Повторно робимо запит на всі рядки (для оновлення інформації)
+
         $http.get('http://localhost:8000/reviews')
             .then(function successCallback(response) {
                 $scope.reviewsArr = response.data;
@@ -256,9 +251,7 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
         };
 
         $http.post('http://localhost:8000/addItem', obj)
-            .then(function successCallback(response) {
-                console.log("Success!");
-            }, function errorCallback(response) {
+            .then(function successCallback(response) {}, function errorCallback(response) {
                 console.log("Error!!!" + response.err);
             });
 
@@ -310,9 +303,7 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
 
 
         $http.post('http://localhost:8000/changeItem', obj)
-            .then(function successCallback(response) {
-                console.log("Success!");
-            }, function errorCallback(response) {
+            .then(function successCallback(response) {}, function errorCallback(response) {
                 console.log("Error!!!" + response.err);
             });
 
@@ -364,6 +355,8 @@ app.directive('homeDirective', function () {
     }
 });
 
+
+//поставити обробника помилок 407 417
 
 app.filter('skipItems', function () {
     return function (value, count) {

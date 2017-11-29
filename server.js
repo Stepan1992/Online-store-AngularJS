@@ -44,7 +44,7 @@ let initDb = function () {
         'PRIMARY KEY(id) )',
         function (err) {
             if (err) throw err;
-            console.log('CREATE TABLE IF NOT EXISTS shop_users')
+
         });
 
     connection.query('' +
@@ -79,6 +79,18 @@ let initDb = function () {
         'user varchar(50),' +
         'date varchar(50),' +
         'goodsname varchar(50),' +
+        'PRIMARY KEY(id) )',
+        function (err) {
+            if (err) throw err;
+        });
+
+
+
+    connection.query('' +
+        'CREATE TABLE IF NOT EXISTS admins (' +
+        'id int(3) NOT NULL AUTO_INCREMENT,' +
+        'name varchar(50), ' +
+        'password varchar(50), ' +
         'PRIMARY KEY(id) )',
         function (err) {
             if (err) throw err;
@@ -125,12 +137,9 @@ app.post('/chating', function (req, res) {
     res.sendStatus(200);
 });
 
-
-
 app.get('/goods', function (req, res) {
     connection.query('SELECT * FROM goods', function (err, responce) {
         if (err) throw err;
-        console.log('get all goods, length: ' + responce.length);
         res.status(200).send(responce);
     });
 });
@@ -166,6 +175,15 @@ app.post('/reviews', function (req, res) {
 
 
 
+
+
+app.get('/checkAdmin', function (req, res) {
+    let sql = "SELECT * FROM admins WHERE name = '" + req.query.admin + "' AND password = '" + req.query.pass + "'";
+    connection.query(sql, function (err, responce) {
+        if (err) throw err;
+        res.status(200).send(responce);
+    });
+});
 
 //fs
 

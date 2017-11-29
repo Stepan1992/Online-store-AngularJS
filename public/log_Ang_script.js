@@ -10,16 +10,18 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
     $scope.currentUserPass = '';
     $scope.template = /[0-9A-Za-z]/;
     $scope.errorMassage = false;
-    $scope.sendUserName = function () {
+    $scope.sendUserName = function (status) {
         $rootScope.$broadcast('sendUserNameEvent', {
-            userName: $scope.currentUserName
+            userName: $scope.currentUserName,
+            userPass: $scope.currentUserPass, 
+            adminStatus: status
         });
     };
-    $scope.sendUserPass = function () {
-        $rootScope.$broadcast('sendUserPassEvent', {
-            userPass: $scope.currentUserPass
-        });
-    };
+    // $scope.sendUserPass = function () {
+    //     $rootScope.$broadcast('sendUserPassEvent', {
+    //         userPass: $scope.currentUserPass
+    //     });
+    // };
 
 
     $scope.sendSearchReq = function () {
@@ -65,7 +67,7 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
         return $filter('lowercase')($scope.userEmailRegNonFiltered);
     }
 
-    //
+    //Переробити функцію перевірки користувача 
 
 
     $scope.mainFunc = function (error, error2) {
@@ -79,6 +81,27 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
                         $scope.currentUserName = $scope.data[i].login;
                         $scope.currentUserPass = $scope.data[i].password;
                         $scope.access = true;
+
+                        let obj = {
+                            admin: $scope.userName(),
+                            pass: $scope.userPass()
+                        };
+
+                        //зробити одне підняття події для користувача та пароля
+
+                        $http.get('http://localhost:8000/checkAdmin', {
+                            params: obj
+                        })
+                        .then(function successCallback(response) {
+                            if (response.data.length !== 0) {
+                             
+                                $scope.sendUserName(true);
+                                // $scope.sendUserPass();
+                            }
+                        }, function errorCallback(response) {
+                            console.log("Error!!!" + response.err);
+                        });
+
                         $timeout(function () {
                             $scope.access = false;
                             $scope.userNameNonFiltered = '';
@@ -90,8 +113,6 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
                                 'display': 'none'
                             });
                             $scope.showHello = true;
-                            $scope.sendUserName();
-                            $scope.sendUserPass();
 
                         }, 2000)
                         $scope.unReg = false;
@@ -145,7 +166,7 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
                 }, function errorCallback(response) {
                     console.log("Error!!!" + response.err);
                 });
-            //Повторно робимо запит на всі рядки (для оновлення інформації)
+
             $http.get('http://localhost:8000/login')
                 .then(function successCallback(response) {
                     $scope.data = response.data;
