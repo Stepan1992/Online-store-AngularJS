@@ -229,8 +229,7 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
 
 
     $scope.limitToFunc = function (event) {
-
-
+        
         var currentDiv = angular.element(event.target);
         var pageNumber = Number(currentDiv.text());
         $scope.from = (pageNumber * goodsCountOnPage) - goodsCountOnPage;

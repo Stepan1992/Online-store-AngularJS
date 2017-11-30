@@ -25,13 +25,16 @@
                 </div>
                 <br>
                 <br>
-                <button class="btn" type="submit" ng-click='logInFunc(myForm.$valid)'>SING IN</button>
+                <button class="btn" type="submit" ng-click='logInFunc(myForm.$valid, userNameNonFiltered, userPassNonFiltered)'>
+                    SING IN</button>
+             
             </form>
         </div>
         <div class="registration" ng-style="showReg">
             <form name='myForm2' novalidate>
                 <p>Enter your Name</p>
-                <input class="inputs" type="text" required ng-model="userNameRegNonFiltered" name="userInputReg" ng-minlength="4" ng-pattern='template'>
+                <input class="inputs" type="text" required ng-model="userNameRegNonFiltered" 
+                name="userInputReg" ng-minlength="4" ng-pattern='template'>
                 <br>
                 <br>
                 <p>Enter your Password</p>
@@ -46,7 +49,8 @@
                 <div ng-show="errorMassage" class="error">
                     You inputed wrong data
                 </div>
-                <button class="btn" type="submit" ng-click='regFunc(myForm2.$valid)'>CONFIRM</button>
+                <button class="btn" type="submit" 
+                ng-click='regFunc(myForm2.$valid, userNameRegNonFiltered, userPassRegNonFiltered, userEmailRegNonFiltered)'>CONFIRM</button>
             </form>
         </div>
         <div class="search">

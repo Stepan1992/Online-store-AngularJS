@@ -10,6 +10,7 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
     $scope.currentUserPass = '';
     $scope.template = /[0-9A-Za-z]/;
     $scope.errorMassage = false;
+    $scope.userDataObj = {};
     $scope.sendUserData = function (status) {
         $rootScope.$broadcast('sendUserData', {
             userName: $scope.currentUserName,
@@ -17,8 +18,6 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
             adminStatus: status
         });
     };
-
-
 
     $scope.sendSearchReq = function () {
         $rootScope.$broadcast('sendSearchReqEvent', {
@@ -41,65 +40,50 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
         'display': 'none'
     };
 
-    //зробити фільтри однією функцією
-
-    $scope.userName = function () {
-        return $filter('lowercase')($scope.userNameNonFiltered);
-    }
-
-    $scope.userPass = function () {
-        return $filter('lowercase')($scope.userPassNonFiltered);
-    }
-
-    $scope.userNameReg = function () {
-        return $filter('lowercase')($scope.userNameRegNonFiltered);
-    }
-
-    $scope.userPassReg = function () {
-        return $filter('lowercase')($scope.userPassRegNonFiltered);
-    }
-
-    $scope.userEmailReg = function () {
-        return $filter('lowercase')($scope.userEmailRegNonFiltered);
-
-    };
-
     //users check function which can detect admin's right
 
-    $scope.logInFunc = function (error, error2) {
+    $scope.logInFunc = function (valid, login, pass) {
 
-        let userObj = {
-            login: $scope.userName(),
-            pass: $scope.userPass()
-        }
+        if (valid) {
 
-        $http.get('http://localhost:8000/login', {
-                params: userObj
-            })
-            .then(function successCallback(response) {
-                if (response.data.length != 0) {
-                    $scope.currentUserName = $scope.userName();
-                    $scope.currentUserPass = $scope.userPass();
-                    $scope.access = true;
+            $scope.userDataObj.login = String(login).toLowerCase();
+            $scope.userDataObj.pass = String(pass).toLowerCase();
 
-                    if (response.data[0].status) {
-                        $scope.sendUserData(true);
-                    };
+            let userObj = {
+                login: $scope.userDataObj.login,
+                pass: $scope.userDataObj.pass
+            }
 
-                    $timeout(function () {
-                        $scope.access = false;
-                        $scope.userNameNonFiltered = '';
-                        $scope.userPassNonFiltered = '';
-                        $scope.showLog = {
-                            display: 'none'
+            $http.get('http://localhost:8000/login', {
+                    params: userObj
+                })
+                .then(function successCallback(response) {
+                    if (response.data.length != 0) {
+
+                        //змінити змінні(вони не потрібні)
+                        $scope.currentUserName = $scope.userDataObj.login;
+                        $scope.currentUserPass = $scope.userDataObj.pass;
+                        $scope.access = true;
+
+                        if (response.data[0].status) {
+                            $scope.sendUserData(true);
                         };
-                        $scope.showHello = true;
-                    }, 2000)
-                    $scope.unReg = false;
-                }
-            }, function errorCallback(response) {
-                console.log("Error!!!" + response.err);
-            });
+
+                        $timeout(function () {
+                            $scope.access = false;
+                            $scope.userNameNonFiltered = '';
+                            $scope.userPassNonFiltered = '';
+                            $scope.showLog = {
+                                display: 'none'
+                            };
+                            $scope.showHello = true;
+                        }, 2000)
+                        $scope.unReg = false;
+                    }
+                }, function errorCallback(response) {
+                    console.log("Error!!!" + response.err);
+                });
+        };
     };
 
 
@@ -109,12 +93,14 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
         }
     };
 
-    $scope.regFunc = function (valid) {
+    $scope.regFunc = function (valid, login, pass, email) {
         if (valid) {
+
             var obj = {
-                login: $scope.userNameReg(),
-                email: $scope.userEmailReg(),
-                password: $scope.userPassReg()
+                
+                login: String(login).toLowerCase(),
+                email: String(pass).toLowerCase(),
+                password: String(email).toLowerCase()
             };
 
             $http.post('http://localhost:8000/login', obj)
@@ -135,7 +121,6 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
                             'display': 'none'
                         });
                     }, 3000);
-
                 }, function errorCallback(response) {
                     console.log("Error!!!" + response.err);
                 });
@@ -150,8 +135,6 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
             $scope.errorMassage = true;
         }
     };
-
-
 })
 
 
@@ -160,8 +143,6 @@ app.directive('login', function () {
         templateUrl: '../templates/login.html'
     }
 });
-
-
 
 
 app.directive('slider', function () {
