@@ -1,6 +1,7 @@
 * {
     padding: 0;
     margin: 0;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
 
@@ -16,43 +17,45 @@
     float: left;
     background-size: cover;
     background-repeat: no-repeat;
+    -webkit-filter: sepia(100%);
     filter: sepia(100%);
     border: 8px solid white;
+    -webkit-box-shadow: 0px 14px 26px -1px rgba(0, 0, 0, 0.8);
     box-shadow: 0px 14px 26px -1px rgba(0, 0, 0, 0.8);
 }
 
 .box1 {
-    background-image: url(img_for_slaider/1.jpg);
+    background-image: url(../assets/img_for_slaider/1.jpg);
 }
 
 .box2 {
     margin-left: 100%;
-    background-image: url(img_for_slaider/2.jpg);
+    background-image: url(../assets/img_for_slaider/2.jpg);
 }
 
 .box3 {
     margin-left: 200%;
-    background-image: url(img_for_slaider/3.jpg);
+    background-image: url(../assets/img_for_slaider/3.jpg);
 }
 
 .box4 {
     margin-left: 300%;
-    background-image: url(img_for_slaider/4.jpg);
+    background-image: url(../assets/img_for_slaider/4.jpg);
 }
 
 .box5 {
     margin-left: 400%;
-    background-image: url(img_for_slaider/5.jpg);
+    background-image: url(../assets/img_for_slaider/5.jpg);
 }
 
 .box6 {
     margin-left: 500%;
-    background-image: url(img_for_slaider/6.jpg);
+    background-image: url(../assets/img_for_slaider/6.jpg);
 }
 
 .box7 {
     margin-left: 600%;
-    background-image: url(img_for_slaider/7.jpg);
+    background-image: url(../assets/img_for_slaider/7.jpg);
 }
 
 .next {
@@ -63,7 +66,7 @@
     width: 80px;
     background-size: contain;
     background-position: right;
-    background-image: url(blog_nav_right_arrow.png);
+    background-image: url(../assets/icons/blog_nav_right_arrow.png);
     margin-top: 110px;
     right: 0;
 }
@@ -76,7 +79,7 @@
     width: 80px;
     background-size: contain;
     background-position: right;
-    background-image: url(blog_nav_left_arrow.png);
+    background-image: url(../assets/icons/blog_nav_left_arrow.png);
     margin-top: 110px;
     left: 0;
 }
@@ -86,8 +89,15 @@
     position: absolute;
     height: 60px;
     width: 706px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
     flex-direction: row;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     margin: auto;
     left: 0;
@@ -95,6 +105,7 @@
     margin-top: 255px;
     background-color: white;
     border-radius: 5px;
+    -webkit-box-shadow: 0px 8px 15px -1px rgba(0, 0, 0, 0.8);
     box-shadow: 0px 8px 15px -1px rgba(0, 0, 0, 0.8);
     float: left;
 }
@@ -105,6 +116,7 @@
     height: 50px;
     background-size: cover;
     background-repeat: no-repeat;
+    -webkit-filter: sepia(100%);
     filter: sepia(100%);
     cursor: pointer;
     border: 2px solid white;
@@ -113,29 +125,29 @@
 }
 
 .listBox1 {
-    background-image: url(img_for_slaider/1.jpg);
+    background-image: url(../assets/img_for_slaider/1.jpg);
 }
 
 .listBox2 {
-    background-image: url(img_for_slaider/2.jpg);
+    background-image: url(../assets/img_for_slaider/2.jpg);
 }
 
 .listBox3 {
-    background-image: url(img_for_slaider/3.jpg);
+    background-image: url(../assets/img_for_slaider/3.jpg);
 }
 
 .listBox4 {
-    background-image: url(img_for_slaider/4.jpg);
+    background-image: url(../assets/img_for_slaider/4.jpg);
 }
 
 .listBox5 {
-    background-image: url(img_for_slaider/5.jpg);
+    background-image: url(../assets/img_for_slaider/5.jpg);
 }
 
 .listBox6 {
-    background-image: url(img_for_slaider/6.jpg);
+    background-image: url(../assets/img_for_slaider/6.jpg);
 }
 
 .listBox7 {
-    background-image: url(img_for_slaider/7.jpg);
+    background-image: url(../assets/img_for_slaider/7.jpg);
 }

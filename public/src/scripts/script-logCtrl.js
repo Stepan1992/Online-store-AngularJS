@@ -157,7 +157,7 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
 
 app.directive('login', function () {
     return {
-        templateUrl: 'structure/login.html'
+        templateUrl: '../templates/login.html'
     }
 });
 
@@ -166,7 +166,7 @@ app.directive('login', function () {
 
 app.directive('slider', function () {
     return {
-        templateUrl: 'structure/slider.html',
+        templateUrl: '../templates/slider.html',
         link: function (scope, element, attrs) {
             sliderFunc();
 

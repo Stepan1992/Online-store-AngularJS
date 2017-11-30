@@ -17,7 +17,7 @@ const port = process.env.PORT || 8000;
 
 const fs = require('fs');
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public/src'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     'extended': 'true'

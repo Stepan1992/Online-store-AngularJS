@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>MyShop</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="style_slider.css">
-    <link rel="stylesheet" href="log_style.css">
-    <script src="jquery-3.2.1.min.js"></script>
-    <script src="angular.min.js"></script>
-    <script src="main_JQ_script.js"></script>
-    <script src="log_Ang_script.js"></script>
-    <script src="chat_script.js"></script>
-    <script src="main_Ang_script.js"></script>
-    <script src="angular-route.min.js"></script>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/slider.css">
+    <link rel="stylesheet" href="styles/dropdown.css">
+    <script src="app/jquery-3.2.1.min.js"></script>
+    <script src="app/angular.min.js"></script>
+    <script src="scripts/script-dropdown-menu.js"></script>
+    <script src="scripts/script-logCtrl.js"></script>
+    <script src="scripts/script-chatCtrl.js"></script>
+    <script src="scripts/script-mainCtrl.js"></script>
+    <script src="app/angular-route.min.js"></script>
 </head>
 
 <body>
@@ -42,11 +42,11 @@
     </aside>
     <article ng-controller="mainCtrl">
         <div ng-show="currentView == 'allGoods' && forAdmin" ><button ng-click="showAddWindow()" class="forAdmin AddNewItem">Add new item</button></div>
-        <div class="goodsWrap" ng-include src="'single_pages/all_goods.html'" ng-show="currentView == 'allGoods'">
+        <div class="goodsWrap" ng-include src="'templates/all_goods.html'" ng-show="currentView == 'allGoods'">
         </div>
-        <div class="goodsWrap" ng-include src="'single_pages/current_goods.html'" ng-show="currentView == 'currentGoods'"></div>
-        <div class="goodsWrap" ng-include src="'single_pages/add_item.html'" ng-show="currentView == 'addItemWindow'"></div>
-        <div class="goodsWrap" ng-include src="'single_pages/change_goods.html'" ng-show="currentView == 'changeGoods'"></div>
+        <div class="goodsWrap" ng-include src="'templates/current_goods.html'" ng-show="currentView == 'currentGoods'"></div>
+        <div class="goodsWrap" ng-include src="'templates/add_item.html'" ng-show="currentView == 'addItemWindow'"></div>
+        <div class="goodsWrap" ng-include src="'templates/change_goods.html'" ng-show="currentView == 'changeGoods'"></div>
         <div class="numbers" ng-show="showPageNumbers">
             <div ng-click="limitToFunc($event)" class="innerNumbers" ng-repeat="number in pagesArr">
             {{number}}
