@@ -126,7 +126,7 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
     };
 
 
-    $scope.$on('sendUserNameEvent', function (event, args) {
+    $scope.$on('sendUserData', function (event, args) {
         $scope.userName = args.userName;
         $scope.userPass = args.userPass;
 
@@ -177,7 +177,7 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
 
     $scope.evenClass = 'evenClass';
     $scope.oddClass = 'oddClass';
-    $scope.$on('sendUserNameEvent', function (event, args) {
+    $scope.$on('sendUserData', function (event, args) {
         $scope.userName = args.userName;
 
 

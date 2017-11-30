@@ -10,18 +10,14 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
     $scope.currentUserPass = '';
     $scope.template = /[0-9A-Za-z]/;
     $scope.errorMassage = false;
-    $scope.sendUserName = function (status) {
-        $rootScope.$broadcast('sendUserNameEvent', {
+    $scope.sendUserData = function (status) {
+        $rootScope.$broadcast('sendUserData', {
             userName: $scope.currentUserName,
-            userPass: $scope.currentUserPass, 
+            userPass: $scope.currentUserPass,
             adminStatus: status
         });
     };
-    // $scope.sendUserPass = function () {
-    //     $rootScope.$broadcast('sendUserPassEvent', {
-    //         userPass: $scope.currentUserPass
-    //     });
-    // };
+
 
 
     $scope.sendSearchReq = function () {
@@ -65,71 +61,48 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
 
     $scope.userEmailReg = function () {
         return $filter('lowercase')($scope.userEmailRegNonFiltered);
-    }
 
-    //Переробити функцію перевірки користувача 
+    };
 
+    //users check function which can detect admin's right
 
-    $scope.mainFunc = function (error, error2) {
+    $scope.logInFunc = function (error, error2) {
 
-        $http.get('http://localhost:8000/login')
+        let userObj = {
+            login: $scope.userName(),
+            pass: $scope.userPass()
+        }
+
+        $http.get('http://localhost:8000/login', {
+                params: userObj
+            })
             .then(function successCallback(response) {
-                $scope.data = response.data;
-                for (var i = 0; i < $scope.data.length; i++) {
-                    if ($scope.userName() == $scope.data[i].login && $scope.userPass() == $scope.data[i].password) {
+                if (response.data.length != 0) {
+                    $scope.currentUserName = $scope.userName();
+                    $scope.currentUserPass = $scope.userPass();
+                    $scope.access = true;
 
-                        $scope.currentUserName = $scope.data[i].login;
-                        $scope.currentUserPass = $scope.data[i].password;
-                        $scope.access = true;
+                    if (response.data[0].status) {
+                        $scope.sendUserData(true);
+                    };
 
-                        let obj = {
-                            admin: $scope.userName(),
-                            pass: $scope.userPass()
+                    $timeout(function () {
+                        $scope.access = false;
+                        $scope.userNameNonFiltered = '';
+                        $scope.userPassNonFiltered = '';
+                        $scope.showLog = {
+                            display: 'none'
                         };
-
-                        //зробити одне підняття події для користувача та пароля
-
-                        $http.get('http://localhost:8000/checkAdmin', {
-                            params: obj
-                        })
-                        .then(function successCallback(response) {
-                            if (response.data.length !== 0) {
-                             
-                                $scope.sendUserName(true);
-                                // $scope.sendUserPass();
-                            }
-                        }, function errorCallback(response) {
-                            console.log("Error!!!" + response.err);
-                        });
-
-                        $timeout(function () {
-                            $scope.access = false;
-                            $scope.userNameNonFiltered = '';
-                            $scope.userPassNonFiltered = '';
-                            $scope.showLog = {
-                                display: 'none'
-                            };
-                            $('.login').css({
-                                'display': 'none'
-                            });
-                            $scope.showHello = true;
-
-                        }, 2000)
-                        $scope.unReg = false;
-                        return;
-                    } else if (!error.required || !error2.required) {
-                        $scope.unReg = true;
-                    } else {
-                        $scope.err = true;
-                    }
-                }
-                if ($scope.userName() == undefined && $scope.userPass() == undefined) {
+                        $scope.showHello = true;
+                    }, 2000)
                     $scope.unReg = false;
                 }
             }, function errorCallback(response) {
                 console.log("Error!!!" + response.err);
             });
     };
+
+
     $scope.errorCheck = function (error, error2) {
         if (error.required || error2.required) {
             return "Type your name and password";
@@ -195,9 +168,9 @@ app.directive('slider', function () {
     return {
         templateUrl: 'structure/slider.html',
         link: function (scope, element, attrs) {
-            mainFunc();
+            sliderFunc();
 
-            function mainFunc() {
+            function sliderFunc() {
                 var count = 0;
                 var boxes = $('.listBox').length;
 

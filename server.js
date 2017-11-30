@@ -41,6 +41,7 @@ let initDb = function () {
         'login varchar(50), ' +
         'email varchar(50),' +
         'password varchar(50),' +
+        'status varchar(50),' +
         'PRIMARY KEY(id) )',
         function (err) {
             if (err) throw err;
@@ -84,25 +85,14 @@ let initDb = function () {
             if (err) throw err;
         });
 
-
-
-    connection.query('' +
-        'CREATE TABLE IF NOT EXISTS admins (' +
-        'id int(3) NOT NULL AUTO_INCREMENT,' +
-        'name varchar(50), ' +
-        'password varchar(50), ' +
-        'PRIMARY KEY(id) )',
-        function (err) {
-            if (err) throw err;
-        });
-
 };
 
 initDb();
 
 
 app.get('/login', function (req, res) {
-    connection.query('SELECT * FROM shop_users', function (err, responce) {
+    let sql = "SELECT * FROM shop_users WHERE login = '" + req.query.login + "' AND password = '" + req.query.pass + "'";
+    connection.query(sql, function (err, responce) {
         if (err) throw err;
         res.status(200).send(responce);
     });
@@ -177,13 +167,6 @@ app.post('/reviews', function (req, res) {
 
 
 
-app.get('/checkAdmin', function (req, res) {
-    let sql = "SELECT * FROM admins WHERE name = '" + req.query.admin + "' AND password = '" + req.query.pass + "'";
-    connection.query(sql, function (err, responce) {
-        if (err) throw err;
-        res.status(200).send(responce);
-    });
-});
 
 //fs
 

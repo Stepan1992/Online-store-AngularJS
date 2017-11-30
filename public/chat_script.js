@@ -2,9 +2,17 @@ app.controller('chatCtrl', function ($scope, $http) {
 
     $scope.evenClass = 'evenClass';
     $scope.oddClass = 'oddClass';
-    $scope.$on('sendUserNameEvent', function (event, args) {
+    $scope.$on('sendUserData', function (event, args) {
         $scope.userName = args.userName;
     });
+
+
+    $http.get('http://localhost:8000/chating')
+        .then(function successCallback(response) {
+            $scope.questionArr = response.data;
+        }, function errorCallback(response) {
+            console.log("Error!!!" + response.err);
+        });
 
 
     $scope.chatFunc = function () {
@@ -34,12 +42,7 @@ app.controller('chatCtrl', function ($scope, $http) {
             });
 
     };
-    
-    $http.get('http://localhost:8000/chating')
-        .then(function successCallback(response) {
-            $scope.questionArr = response.data;
-        }, function errorCallback(response) {
-            console.log("Error!!!" + response.err);
-        });
+
+
 
 });
