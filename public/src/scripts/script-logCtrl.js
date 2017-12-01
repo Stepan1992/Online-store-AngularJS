@@ -6,15 +6,12 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
     $scope.access = false;
     $scope.regist = false;
     $scope.showHello = false;
-    $scope.currentUserName = '';
-    $scope.currentUserPass = '';
     $scope.template = /[0-9A-Za-z]/;
     $scope.errorMassage = false;
     $scope.userDataObj = {};
     $scope.sendUserData = function (status) {
         $rootScope.$broadcast('sendUserData', {
             userName: $scope.currentUserName,
-            userPass: $scope.currentUserPass,
             adminStatus: status
         });
     };
@@ -42,6 +39,25 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
 
     //users check function which can detect admin's right
 
+    $http.get('http://localhost:8000/checkUserStatus')
+        .then(function successCallback(response) {
+            let statusObj = response.data;
+
+            if (statusObj) {
+                $scope.currentUserName = statusObj.login;
+                $scope.showHello = true;
+
+                if ('status' in statusObj) {
+                    $scope.sendUserData(true);
+
+                }
+            }
+
+
+        }, function errorCallback(response) {
+            console.log("Error!!!" + response.err);
+        });
+
     $scope.logInFunc = function (valid, login, pass) {
 
         if (valid) {
@@ -62,7 +78,7 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
 
                         //змінити змінні(вони не потрібні)
                         $scope.currentUserName = $scope.userDataObj.login;
-                        $scope.currentUserPass = $scope.userDataObj.pass;
+                  
                         $scope.access = true;
 
                         if (response.data[0].status) {
@@ -79,11 +95,13 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
                             $scope.showHello = true;
                         }, 2000)
                         $scope.unReg = false;
-                    }
+                    } else $scope.unReg = true;
                 }, function errorCallback(response) {
                     console.log("Error!!!" + response.err);
                 });
-        };
+        } else {
+            $scope.err = true;
+        }
     };
 
 
@@ -97,7 +115,7 @@ app.controller('logCtrl', function ($scope, $timeout, $filter, $rootScope, $http
         if (valid) {
 
             var obj = {
-                
+
                 login: String(login).toLowerCase(),
                 email: String(pass).toLowerCase(),
                 password: String(email).toLowerCase()
@@ -144,6 +162,8 @@ app.directive('login', function () {
     }
 });
 
+
+//винести функціонал слайдера в окремий файл 
 
 app.directive('slider', function () {
     return {

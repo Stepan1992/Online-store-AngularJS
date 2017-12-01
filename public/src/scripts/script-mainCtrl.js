@@ -128,7 +128,6 @@ app.controller('mainCtrl', function ($scope, $http, $location, $rootScope, myFac
 
     $scope.$on('sendUserData', function (event, args) {
         $scope.userName = args.userName;
-        $scope.userPass = args.userPass;
 
         if (args.adminStatus) {
             $scope.forUser = false;

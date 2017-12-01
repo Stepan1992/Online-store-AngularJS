@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
 const mysql = require('mysql');
+const cookieParser = require('cookie-parser');
+const cookie = require('cookie');
 
 
 
@@ -17,12 +19,16 @@ const port = process.env.PORT || 8000;
 
 const fs = require('fs');
 
+
+
 app.use(express.static(__dirname + '/public/src'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     'extended': 'true'
 }));
 app.use(cors());
+app.use(cookieParser('Some secret string'));
+
 
 
 //MYSQL
@@ -91,11 +97,42 @@ initDb();
 
 
 app.get('/login', function (req, res) {
+
+
+
     let sql = "SELECT * FROM shop_users WHERE login = '" + req.query.login + "' AND password = '" + req.query.pass + "'";
-    connection.query(sql, function (err, responce) {
+    connection.query(sql, function (err, responce, fields) {
+        if (responce[0]) {
+            res.cookie('login', responce[0].login, {
+                maxAge: 1000000,
+                signed: true
+            });
+        };
+
+        if ((typeof responce[0].status) === 'string') {
+            res.cookie('status', responce[0].status, {
+                maxAge: 1000000,
+                signed: true
+            });
+        };
+
         if (err) throw err;
+
         res.status(200).send(responce);
     });
+});
+
+
+app.get('/checkUserStatus', function (req, res) {
+
+    let cookieHeaders = req.headers['cookie'];
+
+    if (typeof cookieHeaders === 'string') {
+        let cookies = cookie.parse(cookieHeaders);
+        let statusObj = cookieParser.signedCookies(cookies, 'Some secret string');
+        res.status(200).send(statusObj).end();
+    };
+
 });
 
 app.post('/login', function (req, res) {
