@@ -1,1 +1,1 @@
-# Shop-AngularJs-
+The online store was written in AngularJS framework. A user can register his profile, and signs in for purchases.  Administrator of this store have access rights for posts/changes/deletes products. All information about products save in MySQL database. Node.js is using on the server side with a couple of depending such as Express, Cookie-parser, file-system module and other. The app generates a page for each product according to information in database. For more attractive look I added my own slider to this app. 
